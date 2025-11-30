@@ -1,26 +1,24 @@
-'use client';
+// app/page.tsx
+import { getRandomFact } from '@/app/lib/data';
+import { revalidatePath } from 'next/cache';
 
-import { useState } from 'react';
+export default async function Home() {
+  const fact = await getRandomFact();
 
-export default function HomePage() {
-  const [fact, setFact] = useState('');
-
-  const getFact = async () => {
-    const res = await fetch('/api/facts/random', { method: 'POST' });
-    const data = await res.json();
-    setFact(data.ok ? data.fact.text : 'No facts available. Run seed first.');
-  };
+  async function refreshFact() {
+    'use server';
+    revalidatePath('/');
+  }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Dogs Dashboard</h1>
-      <button
-        onClick={getFact}
-        className="px-4 py-2 rounded bg-primary text-primary-contrast"
-      >
-        Create random dog fact
-      </button>
-      {fact && <p className="italic">{fact}</p>}
-    </div>
+    <main className="p-6 max-w-3xl mx-auto">
+      <h1 className="text-2xl font-semibold text-green-800">Dog Facts</h1>
+      <p className="mt-2 text-slate-700">{fact ?? 'Seed facts to get started.'}</p>
+      <form action={refreshFact} className="mt-4">
+        <button className="rounded bg-green-700 text-white px-4 py-2 hover:bg-green-600">
+          Create random dog fact
+        </button>
+      </form>
+    </main>
   );
 }
