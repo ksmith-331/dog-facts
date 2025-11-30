@@ -1,0 +1,27 @@
+/* app/globals.css */
+
+:root {
+  --bg: #0f1c14; /* deep forest */
+  --fg: #e8f0e6; /* soft light */
+  --panel: #15251b;
+  --muted: #8fa395;
+  --primary: #1e6b3b;
+  --primary-contrast: #e8f0e6;
+  --accent: #2a6f97;
+  --accent-contrast: #e8f0e6;
+  --input: #173224;
+  --link: #2a6f97;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, sans-serif;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
