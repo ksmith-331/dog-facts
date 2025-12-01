@@ -23,12 +23,27 @@ export async function getRandomFact(): Promise<string> {
     }
 
     const json = await res.json();
-    // The API returns { data: [ { attributes: { body: "..." } } ] }
     const fact = json.data?.[0]?.attributes?.body ?? 'No fact available';
     return fact;
   } catch (err: any) {
     console.error('Fact fetch error:', err);
     return 'Could not fetch a fact right now';
+  }
+}
+
+export async function getRandomPhoto(): Promise<string> {
+  try {
+    const res = await fetch('https://dog.ceo/api/breeds/image/random', { cache: 'no-store' });
+    if (!res.ok) {
+      throw new Error(`Photo API failed: ${res.status}`);
+    }
+
+    const json = await res.json();
+    // Dog CEO API returns the image URL in the "message" field
+    return json.message as string;
+  } catch (err: any) {
+    console.error('Image fetch error:', err);
+    return '';
   }
 }
 
