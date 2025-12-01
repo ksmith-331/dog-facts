@@ -1,6 +1,8 @@
 import { getRandomFact, getRandomPhoto } from '@/app/lib/data';
 import { revalidatePath } from 'next/cache';
 import Image from 'next/image';
+export const dynamic = 'force-dynamic';
+
 
 export default async function Home() {
   const fact = await getRandomFact();
